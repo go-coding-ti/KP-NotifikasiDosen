@@ -53,6 +53,8 @@ class MasaStudiController extends Controller
                     $name = $user['nip'].'-'.$file->getClientOriginalName();
                     $folder = 'progress-studi';
                     $file->move($folder, $name);
+                    // $content = $file->getMimeType();
+                    // dd($file->getClientMimeType());
                     $data[] = $name;
                     $att = new ProgressStudi;
                     $att->file_name = $name;

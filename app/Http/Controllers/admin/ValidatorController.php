@@ -1379,6 +1379,8 @@ class ValidatorController extends Controller
                     $name = $dosen->nip.'-'.$file->getClientOriginalName();
                     $folder = 'progress-studi';
                     $file->move($folder, $name);
+                    // $content = $file->getMimeType();
+                    // dd($content);
                     $data[] = $name;
                     $att = new ProgressStudi;
                     $att->file_name = $name;

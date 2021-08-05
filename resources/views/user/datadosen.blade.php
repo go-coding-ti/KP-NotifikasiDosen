@@ -520,9 +520,9 @@ $("#profile_image").change(function() {
                         </small>
                     </div>
                     <div class="col col-md-6">
-                        <label for="Subunit" class="font-weight-bold text-dark">Sub-Unit</label>
+                        <label for="Subunit" class="font-weight-bold text-dark">Homebase</label>
                         <select class="form-control" id="Subunit" name="subunit">
-                            <option value="" {{ $dosen->id_prodi==NULL ? 'selected' : '' }}>Pilih Sub-Unit</option>
+                            <option value="" {{ $dosen->id_prodi==NULL ? 'selected' : '' }}>Pilih Homebase</option>
                             @if($dosen->id_prodi!=NULL)
                                 @foreach($subunit as $u)
                                     <option value="{{$u->id_prodi}}" {{ $dosen->id_prodi == $u->id_prodi  ? 'selected' : '' }}>{{$u->prodi}}</option>
