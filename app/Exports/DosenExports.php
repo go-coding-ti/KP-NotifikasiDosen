@@ -8,9 +8,11 @@ use Illuminate\Database\Eloquent\Collection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use App\HeadingExcel;
 
-class DosenExports implements FromCollection, WithHeadings
+class DosenExports implements FromCollection, WithHeadings, WithEvents
 {
     use Exportable;
     /**
@@ -43,10 +45,12 @@ class DosenExports implements FromCollection, WithHeadings
             AfterSheet::class => function(AfterSheet $event) {
 
                 // last column as letter value (e.g., D)
+                // dd(Coordinate::stringFromColumnIndex(count($this->head)));
                 $last_column = Coordinate::stringFromColumnIndex(count($this->head));
 
                 // calculate last row + 1 (total results + header rows + column headings row + new row)
-                $last_row = count($this->rows) + 2 + 1 + 1;
+                // dd($this->row);
+                $last_row = count($this->row) + 2 + 1 + 1;
 
                 // set up a style array for cell formatting
                 $style_text_center = [
