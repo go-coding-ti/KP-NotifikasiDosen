@@ -138,6 +138,13 @@ Route::prefix('admin')->group(function () {
     Route::get('/import/penelitian-show', 'import\ImportPenelitianController@show')->name('show-import-penelitian');
     Route::Post('/import/penelitian-review', 'import\ImportPenelitianController@view')->name('show-review-penelitian');
     Route::Post('/import/penelitian-save', 'import\ImportPenelitianController@save')->name('save-penelitian');
+
+    // Report
+    Route::get('/report', 'admin\ReportController@reportPage')->name('report-index');
+    // Route::get('/botsetting/create', 'admin\BotSettingController@createSetting')->name('botsetting-create');
+    // Route::post('/botsetting/store', 'admin\BotSettingController@storeSetting')->name('botsetting-store');
+    // Route::get('/botsetting/listsetting/detail/{id}', 'admin\BotSettingController@showSetting')->name('botsetting-show');
+    // Route::post('/botsetting/listsetting/update/{id}', 'admin\BotSettingController@updateSetting')->name('botsetting-update');
 });
 
 Route::prefix('user')->group(function () {

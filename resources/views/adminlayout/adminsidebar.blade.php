@@ -178,7 +178,7 @@
             <span>Bot Setting</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">
+          <a class="nav-link" href="{{route('report-index')}}">
             <i class="fas fa-fw fa-file"></i>
             <span>Report</span></a>
         </li>
