@@ -21,6 +21,13 @@ Route::prefix('admin')->group(function () {
     Route::get('/dashboard', 'admin\HomeController@Home')->name('admin-home');
     Route::get('/logout','auth\AuthController@logout')->name('admin-logout');
     Route::get('/', 'admin\HomeController@Home')->name('admin-home');
+
+    //botsetting
+    Route::get('/botsetting/listsetting', 'admin\BotSettingController@listsetting')->name('botsetting-index');
+    Route::get('/botsetting/create', 'admin\BotSettingController@createSetting')->name('botsetting-create');
+    Route::post('/botsetting/store', 'admin\BotSettingController@storeSetting')->name('botsetting-store');
+    Route::get('/botsetting/listsetting/detail/{id}', 'admin\BotSettingController@showSetting')->name('botsetting-show');
+    Route::post('/botsetting/listsetting/update/{id}', 'admin\BotSettingController@updateSetting')->name('botsetting-update');
     
     //operasi dosen
     Route::get('/datauser/dosen/listdosen', 'admin\ValidatorController@index')->name('dosen-page');

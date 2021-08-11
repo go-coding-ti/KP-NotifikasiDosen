@@ -172,6 +172,16 @@
             <i class="fas fa-fw fa-list"></i>
             <span>Kompetensi</span></a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{route('botsetting-index')}}">
+            <i class="fas fa-fw fa-robot"></i>
+            <span>Bot Setting</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <i class="fas fa-fw fa-file"></i>
+            <span>Report</span></a>
+        </li>
         {{-- <li class="nav-item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKI" aria-expanded="true" aria-controls="collapseKI">
             <i class="fas fa-fw fa-list"></i>
