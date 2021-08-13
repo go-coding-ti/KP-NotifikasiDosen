@@ -40,7 +40,7 @@ function myFunction() {
     
 });
 </script>
-<script>
+{{-- <script>
     $(document).ready(function() {
     var dt = $('#example').DataTable({
         // scrollY:        200,
@@ -58,14 +58,14 @@ function myFunction() {
                 searchPanes: {
                     show: true,
                     options: [
-                        @foreach ($statusaktif as $aktif)
+                        // @foreach ()
                         {
-                            label: '{{$aktif->status_keaktifan}}',
+                            label: '#',
                             value: function(rowData, rowIdx) {
-                                return rowData[37].match('{{$aktif->status_keaktifan}}');
+                                return rowData[37].match('#');
                             }
                         },
-                        @endforeach
+                        // @endforeach
                     ]
                 },
                 targets: [37]
@@ -74,14 +74,14 @@ function myFunction() {
                 searchPanes: {
                     show: true,
                     options: [
-                        @foreach ($prodi as $prodis)
+                        // @foreach ()
                         {
-                            label: '{{$prodis->prodi}}',
+                            label: '#',
                             value: function(rowData, rowIdx) {
-                                return rowData[28].match('{{$prodis->prodi}}');
+                                return rowData[28].match('#');
                             }
                         },
-                        @endforeach
+                        // @endforeach
                     ]
                 },
                 targets: [28]
@@ -104,18 +104,89 @@ function myFunction() {
     //     column.visible( ! column.visible() );
     // } );
 });
-</script>
+</script> --}}
 @endsection
     <!-- Begin Page Content -->
+    
     <div class="container-fluid">
         <div style="margin-left: 10px;" class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-list"></i> Eksport Data Dosen</h1>
+            <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-list"></i> Report</h1>
         </div>
+
+        <div class="row">
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Admin Member Total</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">3</div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        
+              <!-- Earnings (Monthly) Card Example -->
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Posts (Monthly)</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">5</div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        
+              <!-- Earnings (Monthly) Card Example -->
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Posts (Annual)</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">5</div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        
+              <!-- Pending Requests Card Example -->
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-warning shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Subscribe</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-comments fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <!-- DataTales Example -->
             <!-- Copy drisini -->
             <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Eksport Form Data Dosen</h6>
+                <h6 class="m-0 font-weight-bold text-primary">List Data Dosen</h6>
             </div>
             <div class="card-body">
                 @if (Session::has('error'))
@@ -151,13 +222,13 @@ function myFunction() {
                 </div>
                 @endif
                 <div class="table-responsive">
-                <form enctype="multipart/form-data" action="/admin/datauser/dosen/export/dosen/submit" method="POST">
+                <form enctype="multipart/form-data" action="#t" method="POST">
                 @csrf
-                @if($dosen == NULL)
+                {{-- @if($dosen == NULL) --}}
                     <button style="margin-bottom: 10px" id="sub" class="btn btn-success" type="submit" disabled><i class="fas fa-download"></i> Export Data Dosen (.xlsx)</button></th>
-                @else
+                {{-- @else
                     <button style="margin-bottom: 10px" id="sub" class="btn btn-success" type="submit"><i class="fas fa-download"></i> Export Data Dosen (.xlsx)</button></th>
-                @endif
+                @endif --}}
                 <a style="margin-bottom: 10px;" class="btn btn-info dropdown-toggle text-white" onclick="myFunction()"><i class="fas fa-print"></i> Opsi Cetak</a>
                 <a style="margin-bottom: 10px;" class= "btn btn-warning dropdown-toggle text-white" id="toggle" ><i class="fas fa-search"></i> Advanced Search</a>
                 <div id="myDIV" style="display: none">
@@ -165,7 +236,7 @@ function myFunction() {
                         <table class="table table-bordered" id="dataTables" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th colspan="{{count($header)}}">Centang Opsi Dibawah untuk Memilih Kolom yang Ingin Dicetak</th>
+                                    {{-- <th colspan="{{count($header)}}">Centang Opsi Dibawah untuk Memilih Kolom yang Ingin Dicetak</th> --}}
                                 </tr>
                             </thead> 
                             <tbody>
@@ -174,17 +245,17 @@ function myFunction() {
                                  $j = $i;
                                 ?>
                                 <tr class="row">
-                                @foreach ($header as $head)
+                                {{-- @foreach ($header as $head) --}}
                                     @if ($i == $j+7)
                                         @if($i == 2 || $i == 3 || $i == 8 || $i == 27)
                                             <tr class="row">
                                                 <td class="col pl-4">
-                                                    <label><input type="checkbox" value="{{$head->heading}}" name="planned_checked[]" class="planned_checked" data-column="{{$loop->iteration}}" checked><br>{{$head->heading}}</label> 
+                                                    <label><input type="checkbox" value="#" name="planned_checked[]" class="planned_checked" data-column="#" checked><br>#</label> 
                                                 </td>
                                         @else
                                             <tr class="row">
                                                 <td class="col pl-4">
-                                                    <label><input type="checkbox" value="{{$head->heading}}" name="planned_checked[]" class="planned_checked" data-column="{{$loop->iteration}}"><br>{{$head->heading}}</label> 
+                                                    <label><input type="checkbox" value="#" name="planned_checked[]" class="planned_checked" data-column="#"><br>#</label> 
                                                 </td>
                                         @endif
                                                 <?php
@@ -193,16 +264,16 @@ function myFunction() {
                                     @else
                                         @if($i == 2 || $i == 3 || $i == 8 || $i == 27)
                                             <td class="col pl-4">
-                                                <label><input type="checkbox" value="{{$head->heading}}" name="planned_checked[]" class="planned_checked" data-column="{{$loop->iteration}}" checked><br>{{$head->heading}}</label> 
+                                                <label><input type="checkbox" value="#" name="planned_checked[]" class="planned_checked" data-column="#" checked><br>#</label> 
                                             </td>
                                         @else
                                             <td class="col pl-4">
-                                                <label><input type="checkbox" value="{{$head->heading}}" name="planned_checked[]" class="planned_checked" data-column="{{$loop->iteration}}"><br>{{$head->heading}}</label> 
+                                                <label><input type="checkbox" value="#" name="planned_checked[]" class="planned_checked" data-column="#"><br>#</label> 
                                             </td>
                                         @endif
                                         <?php $i++; ?>
                                     @endif  
-                                @endforeach
+                                {{-- @endforeach --}}
                                 </tr>
                             </tbody>
                         </table>
@@ -213,13 +284,13 @@ function myFunction() {
                     <thead>
                     <tr>
                         <th>Action</th>
-                        @foreach($header as $head)
+                        {{-- @foreach($header as $head)
                         <th>{{$head->heading}}</th>
-                        @endforeach
+                        @endforeach --}}
                     </tr>
                     </thead>
                     <tbody>
-                        @if($dosen != NULL)
+                        {{-- @if($dosen != NULL)
                         @foreach($dosen as $data)
                         <tr>
                         <td align="center">
@@ -582,7 +653,7 @@ function myFunction() {
                         @endforeach
                     @else
 
-                    @endif
+                    @endif --}}
                     </tbody>
                 </table>
                 </form>
