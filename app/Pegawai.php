@@ -42,6 +42,14 @@ class Pegawai extends Model
         return $this->belongsToMany('App\MasterPangkatPns', 'tmt_kepangkaktan_fungsional', 'nip', 'id_pangkat_pns')->withPivot('id_tmt_kepangkatan_fungsional');
     }
 
+    public function role(){
+        return $this->hasMany(RolePegawai::class, 'id_pengguna', 'nip');
+    }
+
+    public function roles(){
+        return $this->belongsToMany(Role::class)->using(RolePegawai::class);
+    }
+
     public function kepegawainan(){
         return $this->belongsTo(MasterStatusKepegawaian::class, 'id_status_kepegawaian');
     }

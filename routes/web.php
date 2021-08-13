@@ -29,6 +29,11 @@ Route::prefix('admin')->group(function () {
     Route::get('/botsetting/listsetting/detail/{id}', 'admin\BotSettingController@showSetting')->name('botsetting-show');
     Route::post('/botsetting/listsetting/update/{id}', 'admin\BotSettingController@updateSetting')->name('botsetting-update');
     
+    // Setting Role Pegawai
+    Route::get('/role/setting-index', 'admin\RoleSettingController@index')->name('roleset-index');
+    Route::post('/role/setting-add', 'admin\RoleSettingController@store')->name('roleset-store');
+
+
     //operasi dosen
     Route::get('/datauser/dosen/listdosen', 'admin\ValidatorController@index')->name('dosen-page');
     Route::get('/datauser/dosen/create', 'admin\ValidatorController@create')->name('dosen-createpage');

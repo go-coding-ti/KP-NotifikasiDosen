@@ -23,6 +23,18 @@
             @else
               {{$profiledata->gelar_depan}}. {{$profiledata->nama}}, {{$profiledata->gelar_belakang}}
             @endif
+            @if($profiledata->role != '[]')
+              <!-- {{$pegawai->role->last()->id_role}} -->
+              @foreach($role as $rs)
+                  @if($rs->id == $profiledata->role->last()->id_role)
+                      <!-- <td></td> -->
+                      <span class="badge badge-primary">{{$rs->role}}</span> 
+                      @break
+                  @endif
+              @endforeach
+            @else
+              <span class="badge badge-secondary">No Role</span></h1>
+            @endif
           </div>
         </div>
         <!-- Divider -->
@@ -176,6 +188,11 @@
           <a class="nav-link" href="{{route('botsetting-index')}}">
             <i class="fas fa-fw fa-robot"></i>
             <span>Bot Setting</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{route('roleset-index')}}">
+            <i class="fas fa-fw fa-users-cog"></i>
+            <span>Role Setting</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">
