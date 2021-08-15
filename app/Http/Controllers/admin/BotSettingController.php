@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\BotSetting;
 use App\Pegawai;
+use App\Role;
+use App\RolePegawai;
 
 class BotSettingController extends Controller
 {
@@ -16,7 +18,9 @@ class BotSettingController extends Controller
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
             $botsetting = BotSetting::all();
-            return view('admin.configbot.index',compact('botsetting','profiledata'));
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
+            return view('admin.configbot.index',compact('botsetting','profiledata', 'role', 'rolepegawai'));
         }
     }
 
@@ -26,8 +30,10 @@ class BotSettingController extends Controller
         }else{
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
 
-            return view('admin.configbot.create', compact('profiledata'));
+            return view('admin.configbot.create', compact('profiledata','role','rolepegawai'));
         }
     }
 
@@ -63,8 +69,10 @@ class BotSettingController extends Controller
         }else{
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $bs = BotSetting::where('id','=', $id)->first();
-            return view('admin.configbot.edit', compact('profiledata','bs'));
+            return view('admin.configbot.edit', compact('profiledata','bs','role', 'rolepegawai'));
         }
     } 
 

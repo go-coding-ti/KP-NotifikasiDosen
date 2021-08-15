@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Dosen;
 use App\Pegawai;
+use App\Role;
+use App\RolePegawai;
 
 class HomeController extends Controller
 {
@@ -15,8 +17,10 @@ class HomeController extends Controller
         }else{
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $data = Dosen::get();
-            return view('admin.homeadmin', compact('data','profiledata'));
+            return view('admin.homeadmin', compact('data','profiledata', 'role', 'rolepegawai'));
         }
     }
 }

@@ -24,10 +24,8 @@
               {{$profiledata->gelar_depan}}. {{$profiledata->nama}}, {{$profiledata->gelar_belakang}}
             @endif
             @if($profiledata->role != '[]')
-              <!-- {{$pegawai->role->last()->id_role}} -->
               @foreach($role as $rs)
                   @if($rs->id == $profiledata->role->last()->id_role)
-                      <!-- <td></td> -->
                       <span class="badge badge-primary">{{$rs->role}}</span> 
                       @break
                   @endif
