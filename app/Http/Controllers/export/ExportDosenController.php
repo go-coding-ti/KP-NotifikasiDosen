@@ -32,6 +32,8 @@ use App\Pengabdian;
 use App\KategoriPengabdian;
 use App\HeadingExcel;
 use Illuminate\Support\Collection;
+use App\Role;
+use App\RolePegawai;
 
 class ExportDosenController extends Controller
 {
@@ -40,6 +42,8 @@ class ExportDosenController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $check = $request->session()->get('admin.id');
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
@@ -47,7 +51,7 @@ class ExportDosenController extends Controller
             $prodi = Prodi::all();
             $header = HeadingExcel::all();
             $statusaktif = MasterStatusKeaktifan::all();
-            return view('admin.dosen.exportdosen', compact('statusaktif','header','prodi','dosen','profiledata'));
+            return view('admin.dosen.exportdosen', compact('statusaktif','header','prodi','dosen','profiledata','role','rolepegawai'));
         }
     }
 

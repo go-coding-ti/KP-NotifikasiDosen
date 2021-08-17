@@ -34,6 +34,8 @@ use App\KategoriPengabdian;
 use App\MasterTahunAjaran;
 use App\TahunAjaranDosen;
 use App\ProgressStudi;
+use App\Role;
+use App\RolePegawai;
 
 class ReportController extends Controller
 {
@@ -43,8 +45,9 @@ class ReportController extends Controller
         }else{
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
-            
-            return view('admin.report.report',compact('profiledata'));
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
+            return view('admin.report.report',compact('profiledata','role','rolepegawai'));
         }
     }
 }

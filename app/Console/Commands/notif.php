@@ -12,6 +12,7 @@ use App\NotificationPensiun;
 use App\NotificationPendidikan;
 use App\BotSetting;
 use Carbon\Carbon;
+use App\RolePegawai;
 
 class notif extends Command
 {
@@ -68,6 +69,7 @@ class notif extends Command
                         $not->chat_id = $tmtd['chat_id'];
                         $not->cek_hari = $convert;
                         if($pangkatset->akses_petinggi==1&&$pangkatset->akses_admin==1&&$pangkatset->akses_koprodi==1){
+                            $pimpin = 
                             $not->chatid_petinggi = 1;
                             $not->chatid_admin = 1;
                             $not->chatid_koprodi = 1;

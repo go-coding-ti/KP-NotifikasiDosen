@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Dosen;
 use App\Pegawai;
+use App\Role;
+use App\RolePegawai;
 
 class HomeController extends Controller
 {
@@ -13,10 +15,12 @@ class HomeController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
             $data = Dosen::get();
-            return view('admin.homeadmin', compact('data','profiledata'));
+            return view('admin.homeadmin', compact('data','profiledata','role'));
         }
     }
 }

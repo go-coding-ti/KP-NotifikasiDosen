@@ -23,12 +23,12 @@
             @else
               {{$profiledata->gelar_depan}}. {{$profiledata->nama}}, {{$profiledata->gelar_belakang}}
             @endif
+            <br>
             @if($profiledata->role != '[]')
-              <!-- {{$pegawai->role->last()->id_role}} -->
               @foreach($role as $rs)
                   @if($rs->id == $profiledata->role->last()->id_role)
                       <!-- <td></td> -->
-                      <span class="badge badge-primary">{{$rs->role}}</span> 
+                      <span class="badge badge-pill badge-success">{{$rs->role}}</span> 
                       @break
                   @endif
               @endforeach
@@ -110,14 +110,14 @@
         </li> -->
   
         <!-- Nav Item - Utilities Collapse Menu -->
-        <li class="nav-item">
-          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+        <li class="nav-item {{ Request::is('admin/penelitian*') ? 'active' : '' }}">
+          <a class="nav-link {{ Request::is('admin/penelitian*') ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="{{ Request::is('admin/penelitian') ? 'true' : 'false' }}" aria-controls="collapseUtilities">
             <i class="fas fa-fw fa-briefcase"></i>
             <span>Data Karya Ilmiah</span>
           </a>
-          <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div id="collapseUtilities" class="collapse {{ Request::is('admin/penelitian*') ? 'show' : '' }}" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="{{route('penelitian-list')}}">Penelitian</a>
+              <a class="collapse-item {{ Request::is('admin/penelitian*') ? 'active' : '' }}" href="{{route('penelitian-list')}}">Penelitian</a>
               <a class="collapse-item" href="utilities-border.html">Pengabdian</a>
             </div>
           </div>
@@ -184,18 +184,17 @@
             <i class="fas fa-fw fa-list"></i>
             <span>Kompetensi</span></a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item {{ Request::is('admin/botsetting*') ? 'active' : '' }}">
           <a class="nav-link" href="{{route('botsetting-index')}}">
             <i class="fas fa-fw fa-robot"></i>
             <span>Bot Setting</span></a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item {{ Request::is('admin/role*') ? 'active' : '' }}">
           <a class="nav-link" href="{{route('roleset-index')}}">
             <i class="fas fa-fw fa-users-cog"></i>
             <span>Role Setting</span></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">
+        <li class="nav-item {{ Request::is('admin/report*') ? 'active' : '' }}">
           <a class="nav-link" href="{{route('report-index')}}">
             <i class="fas fa-fw fa-file"></i>
             <span>Report</span></a>

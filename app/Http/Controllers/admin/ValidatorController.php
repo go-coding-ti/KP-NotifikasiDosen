@@ -35,6 +35,8 @@ use App\KategoriPengabdian;
 use App\MasterTahunAjaran;
 use App\TahunAjaranDosen;
 use App\ProgressStudi;
+use App\Role;
+use App\RolePegawai;
 
 class ValidatorController extends Controller
 {
@@ -49,12 +51,14 @@ class ValidatorController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
             $data = Dosen::get();
             $prodi = Prodi::all();
             $ta = MasterTahunAjaran::all();
-            return view('admin.dosen.listdosen', compact('ta','prodi','data','profiledata'));
+            return view('admin.dosen.listdosen', compact('ta','prodi','data','profiledata','role','rolepegawai'));
         }
     }
 
@@ -71,7 +75,8 @@ class ValidatorController extends Controller
             $check = $request->session()->get('admin.id');
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
-
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $statusaktif = MasterStatusKeaktifan::all();
             $statusDosen = MasterStatusDosen::all();
             $pangkatDosen = MasterPangkatPns::all();
@@ -81,7 +86,7 @@ class ValidatorController extends Controller
             $subunit = Prodi::all();
             // $data = Dosen::get();
             $tahun = MasterTahunAjaran::where('status','=','Aktif')->get();
-            return view('admin.dosen.formdosen', compact('tahun','statusDosen', 'pangkatDosen', 'jabatanDosen', 'unit','subunit','statusaktif','statusKepegawaian','profiledata'));
+            return view('admin.dosen.formdosen', compact('tahun','statusDosen', 'pangkatDosen', 'jabatanDosen', 'unit','subunit','statusaktif','statusKepegawaian','profiledata','role','rolepegawai'));
         }
     }
 
@@ -571,7 +576,8 @@ class ValidatorController extends Controller
             $check = $request->session()->get('admin.id');
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
-
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $statusaktif = MasterStatusKeaktifan::all();
             $statusDosen = MasterStatusDosen::all();
             $pangkatDosen = MasterPangkatPns::all();
@@ -583,7 +589,7 @@ class ValidatorController extends Controller
             $unit = Fakultas::all();
             $subunit = Prodi::all();
             $tahun = MasterTahunAjaran::where('status','=','Aktif')->get();
-            return view('admin.dosen.formdosenedit',compact('tahun','statusDosen', 'pangkatDosen', 'jabatanDosen', 'unit','subunit','statusaktif','statusKepegawaian','profiledata','dosen', 'statuskeaktifan', 'attachment'));
+            return view('admin.dosen.formdosenedit',compact('tahun','statusDosen', 'pangkatDosen', 'jabatanDosen', 'unit','subunit','statusaktif','statusKepegawaian','profiledata','dosen', 'statuskeaktifan', 'attachment','role','rolepegawai'));
         }
     }
 
@@ -642,10 +648,12 @@ class ValidatorController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
             $datafakultas = Fakultas::get();
-            return view('admin.masterdata.fakultas.index', compact('datafakultas','profiledata'));
+            return view('admin.masterdata.fakultas.index', compact('datafakultas','profiledata','role','rolepegawai'));
         }
     }
 
@@ -653,9 +661,11 @@ class ValidatorController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
-            return view('admin.masterdata.fakultas.create', compact('profiledata'));
+            return view('admin.masterdata.fakultas.create', compact('profiledata','role','rolepegawai'));
         }
     }
 
@@ -679,10 +689,12 @@ class ValidatorController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
             $datafakultas = Fakultas::where('id_fakultas','=',$id)->first();
-            return view('admin.masterdata.fakultas.edit', compact('datafakultas','profiledata'));
+            return view('admin.masterdata.fakultas.edit', compact('datafakultas','profiledata','role','rolepegawai'));
         }
     }
 
@@ -713,10 +725,12 @@ class ValidatorController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
             $datajf = MasterJabatanFungsional::get();
-            return view('admin.masterdata.jabatanfungsional.index', compact('datajf','profiledata'));
+            return view('admin.masterdata.jabatanfungsional.index', compact('datajf','profiledata','role','rolepegawai'));
         }
     }
 
@@ -724,9 +738,11 @@ class ValidatorController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
-            return view('admin.masterdata.jabatanfungsional.create', compact('profiledata'));
+            return view('admin.masterdata.jabatanfungsional.create', compact('profiledata','role','rolepegawai'));
         }
     }
 
@@ -750,10 +766,12 @@ class ValidatorController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
             $datajf = MasterJabatanFungsional::where('id_jabatan_fungsional','=',$id)->first();
-            return view('admin.masterdata.jabatanfungsional.edit', compact('datajf','profiledata'));
+            return view('admin.masterdata.jabatanfungsional.edit', compact('datajf','profiledata','role','rolepegawai'));
         }
     }
 
@@ -783,10 +801,12 @@ class ValidatorController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
             $datakp = KategoriPenelitian::get();
-            return view('admin.masterdata.kategoripenelitian.index', compact('datakp','profiledata'));
+            return view('admin.masterdata.kategoripenelitian.index', compact('datakp','profiledata','role','rolepegawai'));
         }
     }
 
@@ -794,9 +814,11 @@ class ValidatorController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
-            return view('admin.masterdata.kategoripenelitian.create', compact('profiledata'));
+            return view('admin.masterdata.kategoripenelitian.create', compact('profiledata','role','rolepegawai'));
         }
     }
 
@@ -820,10 +842,12 @@ class ValidatorController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
             $datakp = KategoriPenelitian::where('id_kategori_penelitian','=',$id)->first();
-            return view('admin.masterdata.kategoripenelitian.edit', compact('datakp','profiledata'));
+            return view('admin.masterdata.kategoripenelitian.edit', compact('datakp','profiledata','role','rolepegawai'));
         }
     }
 
@@ -853,10 +877,12 @@ class ValidatorController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
             $datakpeng = KategoriPengabdian::get();
-            return view('admin.masterdata.kategoripengabdian.index', compact('datakpeng','profiledata'));
+            return view('admin.masterdata.kategoripengabdian.index', compact('datakpeng','profiledata','role','rolepegawai'));
         }
     }
 
@@ -864,9 +890,11 @@ class ValidatorController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
-            return view('admin.masterdata.kategoripengabdian.create', compact('profiledata'));
+            return view('admin.masterdata.kategoripengabdian.create', compact('profiledata','role','rolepegawai'));
         }
     }
 
@@ -890,10 +918,12 @@ class ValidatorController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
             $datakpeng = KategoriPengabdian::where('id_kategori_pengabdian','=',$id)->first();
-            return view('admin.masterdata.kategoripengabdian.edit', compact('datakpeng','profiledata'));
+            return view('admin.masterdata.kategoripengabdian.edit', compact('datakpeng','profiledata','role','rolepegawai'));
         }
     }
 
@@ -923,10 +953,12 @@ class ValidatorController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
             $datapp = MasterPangkatPns::get();
-            return view('admin.masterdata.pangkatpns.index', compact('datapp','profiledata'));
+            return view('admin.masterdata.pangkatpns.index', compact('datapp','profiledata','role','rolepegawai'));
         }
     }
 
@@ -934,9 +966,11 @@ class ValidatorController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
-            return view('admin.masterdata.pangkatpns.create', compact('profiledata'));
+            return view('admin.masterdata.pangkatpns.create', compact('profiledata','role','rolepegawai'));
         }
     }
 
@@ -962,10 +996,12 @@ class ValidatorController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
             $datapp = MasterPangkatPns::where('id_pangkat_pns','=',$id)->first();
-            return view('admin.masterdata.pangkatpns.edit', compact('datapp','profiledata'));
+            return view('admin.masterdata.pangkatpns.edit', compact('datapp','profiledata','role','rolepegawai'));
         }
     }
 
@@ -998,10 +1034,12 @@ class ValidatorController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
             $dataprodi = Prodi::get();
-            return view('admin.masterdata.prodi.index', compact('dataprodi','profiledata'));
+            return view('admin.masterdata.prodi.index', compact('dataprodi','profiledata','role','rolepegawai'));
         }
     }
 
@@ -1009,10 +1047,12 @@ class ValidatorController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
             $unit = Fakultas::all();
-            return view('admin.masterdata.prodi.create', compact('unit','profiledata'));
+            return view('admin.masterdata.prodi.create', compact('unit','profiledata','role','rolepegawai'));
         }
     }
 
@@ -1038,11 +1078,13 @@ class ValidatorController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
             $dataprodi = Prodi::where('id_prodi','=',$id)->first();
             $unit = Fakultas::all();
-            return view('admin.masterdata.prodi.edit', compact('dataprodi','unit','profiledata'));
+            return view('admin.masterdata.prodi.edit', compact('dataprodi','unit','profiledata','role','rolepegawai'));
         }
     }
 
@@ -1075,10 +1117,12 @@ class ValidatorController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
             $datasd = MasterStatusDosen::get();
-            return view('admin.masterdata.statusdosen.index', compact('datasd','profiledata'));
+            return view('admin.masterdata.statusdosen.index', compact('datasd','profiledata','role','rolepegawai'));
         }
     }
 
@@ -1086,9 +1130,11 @@ class ValidatorController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
-            return view('admin.masterdata.statusdosen.create', compact('profiledata'));
+            return view('admin.masterdata.statusdosen.create', compact('profiledata','role','rolepegawai'));
         }
     }
 
@@ -1112,10 +1158,12 @@ class ValidatorController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
             $datasd = MasterStatusDosen::where('id_status_dosen','=',$id)->first();
-            return view('admin.masterdata.statusdosen.edit', compact('datasd','profiledata'));
+            return view('admin.masterdata.statusdosen.edit', compact('datasd','profiledata','role','rolepegawai'));
         }
     }
 
@@ -1146,10 +1194,12 @@ class ValidatorController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
             $datask = MasterStatusKeaktifan::get();
-            return view('admin.masterdata.statuskeaktifan.index', compact('datask','profiledata'));
+            return view('admin.masterdata.statuskeaktifan.index', compact('datask','profiledata','role','rolepegawai'));
         }
     }
 
@@ -1157,9 +1207,11 @@ class ValidatorController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
-            return view('admin.masterdata.statuskeaktifan.create', compact('profiledata'));
+            return view('admin.masterdata.statuskeaktifan.create', compact('profiledata','role','rolepegawai'));
         }
     }
 
@@ -1183,10 +1235,12 @@ class ValidatorController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
             $datask = MasterStatusKeaktifan::where('id_status_keaktifan','=',$id)->first();
-            return view('admin.masterdata.statuskeaktifan.edit', compact('datask','profiledata'));
+            return view('admin.masterdata.statuskeaktifan.edit', compact('datask','profiledata','role','rolepegawai'));
         }
     }
 
@@ -1217,10 +1271,12 @@ class ValidatorController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
             $dataskp = MasterStatusKepegawaian::get();
-            return view('admin.masterdata.statuskepegawaian.index', compact('dataskp','profiledata'));
+            return view('admin.masterdata.statuskepegawaian.index', compact('dataskp','profiledata','role','rolepegawai'));
         }
     }
 
@@ -1228,9 +1284,11 @@ class ValidatorController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
-            return view('admin.masterdata.statuskepegawaian.create', compact('profiledata'));
+            return view('admin.masterdata.statuskepegawaian.create', compact('profiledata','role','rolepegawai'));
         }
     }
 
@@ -1254,10 +1312,12 @@ class ValidatorController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
             $dataskp = MasterStatusKepegawaian::where('id_status_kepegawaian','=',$id)->first();
-            return view('admin.masterdata.statuskepegawaian.edit', compact('dataskp','profiledata'));
+            return view('admin.masterdata.statuskepegawaian.edit', compact('dataskp','profiledata','role','rolepegawai'));
         }
     }
 
@@ -1287,10 +1347,12 @@ class ValidatorController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
             $datata = MasterTahunAjaran::get();
-            return view('admin.masterdata.tahunajaran.index', compact('datata','profiledata'));
+            return view('admin.masterdata.tahunajaran.index', compact('datata','profiledata','role','rolepegawai'));
         }
     }
 
@@ -1298,9 +1360,11 @@ class ValidatorController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
-            return view('admin.masterdata.tahunajaran.create', compact('profiledata'));
+            return view('admin.masterdata.tahunajaran.create', compact('profiledata','role','rolepegawai'));
         }
     }
 
@@ -1328,10 +1392,12 @@ class ValidatorController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
             $datata = MasterTahunAjaran::where('id','=',$id)->first();
-            return view('admin.masterdata.tahunajaran.edit', compact('datata','profiledata'));
+            return view('admin.masterdata.tahunajaran.edit', compact('datata','profiledata','role','rolepegawai'));
         }
     }
 

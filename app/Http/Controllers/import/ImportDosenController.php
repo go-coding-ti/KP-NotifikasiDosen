@@ -28,6 +28,8 @@ use App\TmtStatusDosen;
 use App\TmtStatusKepegawaianDosen;
 use App\MasterTahunAjaran;
 use App\TahunAjaranDosen;
+use App\Role;
+use App\RolePegawai;
 
 class ImportDosenController extends Controller
 {
@@ -35,11 +37,13 @@ class ImportDosenController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $imports = NULL;
             $check = $request->session()->get('admin.id');
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
-            return view('admin.dosen.importdosen', compact('profiledata','imports'));
+            return view('admin.dosen.importdosen', compact('profiledata','imports','role','rolepegawai'));
         }
     }
 
@@ -49,6 +53,8 @@ class ImportDosenController extends Controller
         }else{
             $excel = null;
             if($request->file('inputfile')){
+                $role = Role::all();
+                $rolepegawai = RolePegawai::all();
                 $user = $request->session()->get('admin.data');
                 $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
                 $file = $request->file('inputfile');
@@ -59,7 +65,7 @@ class ImportDosenController extends Controller
     
                 $upload = 'excel';
                 $file->move($upload,$excel);
-                return view('admin.dosen.importdosen', compact('imports','profiledata'),['success'=>'Berhasil Meload Data Excel']);
+                return view('admin.dosen.importdosen', compact('imports','profiledata','role','rolepegawai'),['success'=>'Berhasil Meload Data Excel']);
             }else{
                 return redirect()->route('admin-import-dosen')->with('error','Gagal Meload Excel');
             }

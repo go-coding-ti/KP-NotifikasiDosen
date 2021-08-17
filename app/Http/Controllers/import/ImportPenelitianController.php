@@ -13,6 +13,8 @@ use App\Penelitian;
 use App\Penulis;
 use App\DetailPenelitian;
 use App\MasterTahunAjaran;
+use App\Role;
+use App\RolePegawai;
 
 class ImportPenelitianController extends Controller
 {
@@ -21,11 +23,13 @@ class ImportPenelitianController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $datapenelitian = NULL;
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
             $data = Dosen::get();
-            return view('admin.penelitian.penelitian-import', compact('datapenelitian','data','profiledata'));
+            return view('admin.penelitian.penelitian-import', compact('datapenelitian','data','profiledata','role','rolepegawai'));
         }
     }
 
@@ -34,14 +38,15 @@ class ImportPenelitianController extends Controller
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
             $file = $request->file('inputfile');
-        
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $rows = Excel::ToCollection(new PenelitianImports, $file);
             $datapenelitian = $rows['0'];
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
             $data = Dosen::get();
             
-            return view('admin.penelitian.penelitian-import', compact('datapenelitian','data','profiledata'),['success'=>'Berhasil Meload Data Excel']);
+            return view('admin.penelitian.penelitian-import', compact('datapenelitian','data','profiledata','role','rolepegawai'),['success'=>'Berhasil Meload Data Excel']);
         }
     }
 

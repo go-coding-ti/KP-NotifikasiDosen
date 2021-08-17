@@ -11,6 +11,8 @@ use App\Penelitian;
 use App\Penulis;
 use App\DetailPenelitian;
 use App\MasterTahunAjaran;
+use App\Role;
+use App\RolePegawai;
 
 class PenelitianController extends Controller
 {
@@ -24,13 +26,15 @@ class PenelitianController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $kategori = KategoriPenelitian::all();
             $datapenelitian = Penelitian::all();
             $tahunajaran = MasterTahunAjaran::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
             $data = Dosen::get();
-            return view('admin.penelitian.penelitian', compact('kategori', 'datapenelitian', 'tahunajaran', 'data', 'profiledata'));
+            return view('admin.penelitian.penelitian', compact('kategori', 'datapenelitian', 'tahunajaran', 'data', 'profiledata','role','rolepegawai'));
         }
         
         // $id = $kategori->id_kategori_penelitian;
@@ -41,6 +45,8 @@ class PenelitianController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $kategori = KategoriPenelitian::all();
             $datapenelitian = Penelitian::where('id_penelitian', $request->id)->first();
             $idpenulis = DetailPenelitian::where('id_penelitian', $request->id)->orderBy('penulis_ke', 'asc')->get();
@@ -63,7 +69,7 @@ class PenelitianController extends Controller
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
             $data = Dosen::get();
-            return view('admin.penelitian.penelitian-detail', compact('kategori', 'penulis', 'datapenelitian', 'data', 'profiledata', 'tahunajaran', 'alltahun'));
+            return view('admin.penelitian.penelitian-detail', compact('kategori', 'penulis', 'datapenelitian', 'data', 'profiledata', 'tahunajaran', 'alltahun','role','rolepegawai'));
         }
     }
 

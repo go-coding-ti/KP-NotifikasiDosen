@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\BotSetting;
 use App\Pegawai;
+use App\Role;
+use App\RolePegawai;
 
 class BotSettingController extends Controller
 {
@@ -13,10 +15,12 @@ class BotSettingController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
             $botsetting = BotSetting::all();
-            return view('admin.configbot.index',compact('botsetting','profiledata'));
+            return view('admin.configbot.index',compact('botsetting','profiledata','role','rolepegawai'));
         }
     }
 
@@ -24,10 +28,12 @@ class BotSettingController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
 
-            return view('admin.configbot.create', compact('profiledata'));
+            return view('admin.configbot.create', compact('profiledata','role','rolepegawai'));
         }
     }
 
@@ -61,10 +67,12 @@ class BotSettingController extends Controller
         if(!$request->session()->has('admin')){
             return redirect('/login')->with('expired','Session Telah Berakhir');
         }else{
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
             $bs = BotSetting::where('id','=', $id)->first();
-            return view('admin.configbot.edit', compact('profiledata','bs'));
+            return view('admin.configbot.edit', compact('profiledata','bs','role','rolepegawai'));
         }
     } 
 
