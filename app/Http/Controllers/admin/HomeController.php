@@ -19,8 +19,10 @@ class HomeController extends Controller
             $rolepegawai = RolePegawai::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $data = Dosen::get();
-            return view('admin.homeadmin', compact('data','profiledata','role'));
+            return view('admin.homeadmin', compact('data','profiledata', 'role', 'rolepegawai'));
         }
     }
 }

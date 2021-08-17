@@ -32,6 +32,8 @@ class BotSettingController extends Controller
             $rolepegawai = RolePegawai::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
 
             return view('admin.configbot.create', compact('profiledata','role','rolepegawai'));
         }
@@ -71,6 +73,8 @@ class BotSettingController extends Controller
             $rolepegawai = RolePegawai::all();
             $user = $request->session()->get('admin.data');
             $profiledata = Pegawai::where('nip','=', $user["nip"])->first();
+            $role = Role::all();
+            $rolepegawai = RolePegawai::all();
             $bs = BotSetting::where('id','=', $id)->first();
             return view('admin.configbot.edit', compact('profiledata','bs','role','rolepegawai'));
         }
